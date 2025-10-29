@@ -359,21 +359,55 @@
             <h1 class="my-heading text-center">Contact Me</h1>
         </div>
      
-        <div class="contact-content">
-            <div class="contact-form-container">
-                <h1 class="greet-heading">Get In Touch</h1>
-                
-                <form class="contact-form" action="contactMe1.php" method="POST">
-                    <input class="form-controls" type="text" placeholder="Your Name" name="name" id="">
-                    <input class="form-controls" type="text" placeholder="Your Email" name="email" id="">
-                    <input class="form-controls" type="text" placeholder="Your Phone" name="Phone" id="">
-                    <textarea class="form-controls" placeholder="Write your message" name="message" id="" cols="30"
-                        rows="10">
-                      </textarea>
-                    <input class="form-btn btn common-btn" type="submit" value="Send Message">
-                </form>
-            
-            </div>
+       <?php
+// The contact Us Form wont work with Local Host but it will work on Live Server
+if(isset($_REQUEST['submit'])) {
+// Checking for Empty Fields
+if(($_REQUEST['name'] == "") || ($_REQUEST['email'] == "") ||
+   ($_REQUEST['phone'] == "") || ($_REQUEST['message'] == "")) {
+// msg displayed if required field missing
+$msg = '<div class="alert alert-warning col-sm-6 ml-5 mt-2" role="alert"> Fill All Fields </div>';
+}
+else {
+$name = $_REQUEST['name'];
+    $email = $_REQUEST['email'];
+$phone = $_REQUEST['phone'];
+$message = $_REQUEST['message'];
+
+$mailTo = "diwanhitesh68@gmail.com";
+$headers = "From: ".$email;
+$txt = "You have received an email from ".$name.".\n\n".$message;
+mail($mailTo, $phone, $txt, $headers);
+$msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Sent Successfully </div>';
+}
+}
+?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+    
+</head>
+<body>
+
+<div class="box">
+    <h2>Contact Form</h2>
+
+    
+    <form action="" method="POST">
+        <input type="text" name="name" placeholder="Your Name">
+        <input type="text" name="email" placeholder="Your Email">
+        <input type="text" name="phone" placeholder="Your Phone">
+        <textarea name="message" placeholder="Your Message"></textarea>
+        <button class="btn" type="submit">Send Message</button>
+    <?php if(isset($msg)) {echo $msg} ?>
+    </form>
+</div>
+
+</body>
+</html>
            
             <div class="contact-details">
                 <h1 class="greet-heading">My Contact Details</h1>
@@ -450,4 +484,5 @@
 
 
 </html>
+
 
